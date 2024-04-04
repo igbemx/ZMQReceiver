@@ -12,14 +12,21 @@ main_json_identifiers = [
 
 receiver = ZMQReceiver(
     main_json_identifiers=main_json_identifiers,
-    url="tcp://b-softimax-sophie-cc-0:55561",
+    url_receiv="tcp://b-softimax-sophie-cc-0:55561",
+    url_request="tcp://b-softimax-sophie-cc-0:55562",
     debug=False
 )
 receiver.start_receiver()
+time.sleep(2)
 
 while True:
-    print(receiver.parsed_data)
-    time.sleep(1)
+    for key, value in receiver.parsed_data.items():
+        print(key)
+    
+    for num, value in enumerate(receiver.parsed_data['positionerStatus'][0]):
+        print(f'positioner {num} value is: {value}')
+    #print(receiver.parsed_data)
+    time.sleep(2)
 
 # Later, when you want to stop:
 receiver.stop_receiver()  # Stop receiving messages
