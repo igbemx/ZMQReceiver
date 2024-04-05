@@ -1,6 +1,6 @@
 import zmq
 import json
-from pprint import pprint
+from pprint import pprint, pformat
 from datetime import datetime
 from PyQt5.QtCore import QThread
 
@@ -16,12 +16,12 @@ class ZMQReceiver(QThread):
         self.timeout = timeout
         self.debug = debug
 
-        self.pix_ctrl_status =  None
-        self.positioner_def = None
-        self.detector_def = None
-        self.oscilloscope_def = None
-        self.zone_plate_def = None
-        self.remote_file_system_nfo = None
+        self.pix_ctrl_status =  {}
+        self.positioner_def = {}
+        self.detector_def = {}
+        self.oscilloscope_def = {}
+        self.zone_plate_def = {}
+        self.remote_file_system_nfo = {}
 
         # Subscribing to the zmq stream from Pixelator
         self.context = zmq.Context()
@@ -165,7 +165,13 @@ class ZMQReceiver(QThread):
         self.zone_plate_def = self.init_response_dict[4]
         self.remote_file_system_nfo = self.init_response_dict[5]
 
-        pprint(self.zone_plate_def)
+        formatted_output = pformat(self.positioner_def)
+
+        # Write the string to a file
+        with open('output.txt', 'w') as f:
+            f.write(formatted_output)
+
+        pprint(self.positioner_def)
 
     def _convert_to_dict(self, lst):
         result = {}
