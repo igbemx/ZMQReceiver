@@ -29,3 +29,7 @@ dist/
 
 # Miscellaneous
 .DS_Store
+
+# Tmp sardana ctrl
+pmd_sardana.py
+motion_controller.py

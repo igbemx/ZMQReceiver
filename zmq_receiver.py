@@ -1,3 +1,13 @@
+"""
+File: zmq_receiver.py
+
+This is ZMQ receiver designed specifically to request/get and parse messages to/from Pixelator STXM controller.
+
+Author: Igor Beinik
+Date: 2024-05-21
+"""
+
+
 import zmq
 import json
 from pprint import pprint, pformat
